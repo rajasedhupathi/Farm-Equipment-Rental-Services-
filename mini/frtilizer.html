@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmux</title>
+    <link rel="shortcut icon" href="C:\Users\saran\OneDrive\Pictures\e79820865e4a62acec92d2845a793b98.jpg" type="image/x-icon">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #20a898;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header img {
+            height: 120px;
+            width: auto;
+            margin-right: 10px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .container {
+            padding: 20px;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-image: url('https://cdn.pixabay.com/photo/2016/01/02/00/40/green-1117267_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .hero h1 {
+            position: relative;
+            z-index: 2;
+            font-family: 'Cursive', sans-serif;
+            color: white;
+            font-size: 36px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+        h2 {
+            color: #4CAF50;
+            font-size: 28px;
+            font-family: 'Cursive', sans-serif;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        /* Grid and Card Styles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .card img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Fertilizer Section Styles */
+        .fertilizer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .fertilizer-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .fertilizer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .fertilizer-card img {
+            width: 100%;
+            border-radius: 5px;
+            height: 200px;
+        }
+        .fertilizer-card h3 {
+            color: #4CAF50;
+            font-size: 22px;
+            margin-top: 10px;
+        }
+        .fertilizer-card p {
+            color: #555;
+            font-size: 18px;
+        }
+        .fertilizer-card .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 10px 0;
+        }
+        .fertilizer-card button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .fertilizer-card button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="fertilizers" class="container">
+        <footer>
+            <h1>Fertilizers </h1>
+            </footer>
+        <div class="fertilizer-grid">
+            <div class="fertilizer-card">
+                <img src="./image/fertilizer/Urea Fertilizer.jpeg" alt="Urea Fertilizer">
+                <h3>Urea Fertilizer</h3>
+                <p>Perfect for boosting plant growth.</p>
+                <div class="price">₹ 2,000 / 50kg</div>
+                <button onclick="buyNow('Urea Fertilizer')">Buy Now</button>
+            </div>
+            <div class="fertilizer-card">
+                <img src="./image/fertilizer/DAP Fertilizer.jpeg" alt="DAP Fertilizer">
+                <h3>DAP Fertilizer</h3>
+                <p>Ideal for promoting root and flowering development.</p>
+                <div class="price">₹ 2,500 / 50kg</div>
+                <button onclick="buyNow('DAP Fertilizer')">Buy Now</button>
+            </div>
+            <div class="fertilizer-card">
+                <img src="./image/fertilizer/Potassium Fertilizer.jpeg" alt="Potassium Fertilizer">
+                <h3>Potassium Fertilizer</h3>
+                <p>Helps in strengthening plant resistance to diseases.</p>
+                <div class="price">₹ 2,800 / 50kg</div>
+                <button onclick="buyNow('Potassium Fertilizer')">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        function buyNow(fertilizer) {
+            alert('You have selected ' + fertilizer + ' for purchase!');
+        }
+    </script>
+
+</body>
+</html>

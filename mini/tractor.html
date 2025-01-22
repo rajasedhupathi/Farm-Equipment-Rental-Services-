@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Rental</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        header input {
+            padding: 10px;
+            width: 300px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .vehicle-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .vehicle-card img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .vehicle-card h2 {
+            color: #4CAF50;
+            margin: 10px 0;
+        }
+        .vehicle-card p {
+            font-size: 18px;
+            color: #333;
+        }
+        .vehicle-card button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .vehicle-card button:hover {
+            background-color: #45a049;
+        }
+
+        /* Booking Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+        .modal-content input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal-content button:hover {
+            background-color: #45a049;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+        #map {
+            height: 300px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Vehicle Rental</h1>
+        <input type="text" id="searchBar" placeholder="Search for a vehicle..." onkeyup="filterVehicles()">
+    </header>
+
+    <div class="container" id="vehicleContainer">
+        <!-- Vehicle Cards -->
+        <div class="vehicle-card" data-name="Tractor">
+            <img src="./image/vehical/tractor image 2.jpeg" alt="Tractor">
+            <h2>Tractor</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹500</p>
+            <button onclick="openBookingForm('Tractor', 500)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Lorry">
+            <img src="./image/vehical/image lorry.jpeg" alt="Lorry">
+            <h2>Lorry</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹800</p>
+            <button onclick="openBookingForm('Lorry', 800)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Power Tiller">
+            <img src="./image/vehical/power tiller.jpeg" alt="Power Tiller">
+            <h2>Power Tiller</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹300</p>
+            <button onclick="openBookingForm('Power Tiller', 300)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Paddy Harvester">
+            <img src="./image/vehical/Paddy Harvester.jpeg" alt="Paddy Harvester">
+            <h2>Paddy Harvester</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹1200</p>
+            <button onclick="openBookingForm('Paddy Harvester', 1200)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Paddy Transplanter">
+            <img src="./image/vehical/Paddy Transplanter.jpeg" alt="Paddy Transplanter">
+            <h2>Paddy Transplanter</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹1000</p>
+            <button onclick="openBookingForm('Paddy Transplanter', 1000)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Sugarcane Harvester">
+            <img src="./image/vehical/Sugarcane Harvester.jpeg" alt="Sugarcane Harvester">
+            <h2>Sugarcane Harvester</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹1500</p>
+            <button onclick="openBookingForm('Sugarcane Harvester', 1500)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Combine Harvester">
+            <img src="./image/vehical/Combine Harvester.jpeg" alt="Combine Harvester">
+            <h2>Combine Harvester</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹1800</p>
+            <button onclick="openBookingForm('Combine Harvester', 1800)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Water Tanker">
+            <img src="./image/vehical/Water Tanker.jpeg" alt="Water Tanker">
+            <h2>Water Tanker</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹700</p>
+            <button onclick="openBookingForm('Water Tanker', 700)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Bulldozer">
+            <img src="./image/vehical/Bulldozer.jpeg" alt="Bulldozer">
+            <h2>Bulldozer</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹2000</p>
+            <button onclick="openBookingForm('Bulldozer', 2000)">Book Now</button>
+        </div>
+
+        <div class="vehicle-card" data-name="Backhoe Loader">
+            <img src="./image/vehical/backhoe loader.jpeg" alt="Backhoe Loader">
+            <h2>Backhoe Loader</h2>
+            <p><strong>Rental Hour:</strong> 1 hour</p>
+            <p><strong>Rental Amount:</strong> ₹2500</p>
+            <button onclick="openBookingForm('Backhoe Loader', 2500)">Book Now</button>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBookingForm()">&times;</span>
+            <h2>Book Your Vehicle</h2>
+            <form id="bookingForm">
+                <input type="text" id="userName" placeholder="Your Name" required pattern="[A-Za-z\s.]+" title="Name must contain only letters and spaces."><br>
+                <input type="text" id="userPhone" placeholder="Your Phone Number" required pattern="^[0-9]{10}$" title="Phone number must be 10 digits long."><br>
+                <input type="text" id="userLocation" placeholder="Enter your Location" required><br>
+                <input type="number" id="userHours" placeholder="Number of Hours" required><br>
+                <button type="submit">Confirm Booking</button>
+            </form>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap&libraries=places" async defer></script>
+
+    <script>
+        let vehicleName = '';
+        let vehiclePrice = 0;
+
+        function openBookingForm(name, price) {
+            vehicleName = name;
+            vehiclePrice = price;
+            document.getElementById('bookingModal').style.display = 'flex';
+        }
+
+        function closeBookingForm() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        // Initialize the Google Map
+        function initMap() {
+            const mapOptions = {
+                center: { lat: 40.7128, lng: -74.0060 }, // Default to New York, change as needed
+                zoom: 14,
+            };
+            const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            const input = document.getElementById("userLocation");
+            const autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.setFields(["address_components", "geometry"]);
+            autocomplete.addListener("place_changed", function () {
+                const place = autocomplete.getPlace();
+                if (place.geometry) {
+                    const lat = place.geometry.location.lat();
+                    const lng = place.geometry.location.lng();
+                    map.setCenter({ lat, lng });
+                    new google.maps.Marker({
+                        position: place.geometry.location,
+                        map: map,
+                    });
+                }
+            });
+        }
+
+       
+        document.getElementById('bookingForm').onsubmit = function(event) {
+            event.preventDefault();
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const location = document.getElementById('userLocation').value;
+            const hours = document.getElementById('userHours').value;
+
+            alert(`Booking Confirmed! \nVehicle: ${vehicleName} \nRental Hours: ${hours} hours \nTotal Cost: ₹${vehiclePrice * hours} \nName: ${name} \nPhone: ${phone} \nLocation: ${location}`);
+            closeBookingForm();
+        };
+
+        function filterVehicles() {
+            const searchQuery = document.getElementById('searchBar').value.toLowerCase();
+            const vehicleCards = document.querySelectorAll('.vehicle-card');
+
+            vehicleCards.forEach(card => {
+                const vehicleName = card.getAttribute('data-name').toLowerCase();
+                if (vehicleName.includes(searchQuery)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
